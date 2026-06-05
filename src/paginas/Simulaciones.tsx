@@ -39,7 +39,7 @@ export function Simulaciones() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">Historial de simulaciones</h1>
-          <p className="text-sm text-slate-500">Abre, edita o comparte las propuestas guardadas.</p>
+          <p className="text-sm text-slate-500">Abre o edita las propuestas guardadas.</p>
         </div>
         <Link to="/simulaciones/nueva" className="boton-primario">
           Nueva simulación

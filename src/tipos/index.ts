@@ -195,48 +195,6 @@ export interface Simulacion extends Indicadores {
   cliente_nombre?: string | null;
   vehiculo_descripcion?: string | null;
   usuario_nombre?: string | null;
-  token_compartir?: string | null;
-  cronograma: FilaCronograma[];
-}
-
-export interface SimulacionClienteVista {
-  codigo: string;
-  nombre?: string | null;
-  estado: EstadoSimulacion;
-  moneda: Moneda;
-  cliente_nombre?: string | null;
-  vehiculo_descripcion?: string | null;
-  fecha_inicio: string;
-  precio_vehiculo: number;
-  cuota_inicial: number;
-  cuota_final: number;
-  monto_financiado: number;
-  plazo_meses: number;
-  tea_equivalente: number;
-  tem: number;
-  cuota_mensual: number;
-  cuota_total_promedio: number;
-  tcea: number | null;
-  tasa_moratoria_anual: number;
-  costo_total_credito: number;
-  total_intereses: number;
-  total_seguros: number;
-  total_gastos_iniciales: number;
-  total_cargos_desembolso: number;
-  total_gps_mantenimiento: number;
-  monto_total_pagado: number;
-  seguro_desgravamen_anual: number;
-  desgravamen_consentido: boolean;
-  seguro_vehicular_mensual: number;
-  gps_instalacion: number;
-  gps_mantenimiento_mensual: number;
-  gps_reposicion: number;
-  gastos_notariales: number;
-  gastos_registrales: number;
-  tasacion: number;
-  aseguradora?: string | null;
-  numero_poliza?: string | null;
-  coberturas?: string | null;
   cronograma: FilaCronograma[];
 }
 

@@ -6,7 +6,6 @@ import {
   formatoMoneda,
   formatoPorcentaje,
 } from "../utilidades/formato";
-import { descargarCronogramaCsv } from "../utilidades/exportar";
 import { AyudaTooltip } from "./AyudaTooltip";
 
 interface PropiedadesResultados {
@@ -47,7 +46,6 @@ function Indicador({
 export function ResultadosSimulacion({
   indicadores,
   cronograma,
-  codigo,
   tipoCambio,
 }: PropiedadesResultados) {
   const moneda: Moneda = indicadores.moneda;
@@ -93,11 +91,19 @@ export function ResultadosSimulacion({
           {equivalente(indicadores.cuota_mensual) && (
             <p className="text-xs text-slate-400">{equivalente(indicadores.cuota_mensual)}</p>
           )}
-          <p className="mt-1 text-xs text-slate-500">
-            Cuota mensual con seguros y cargos:{" "}
-            {formatoMoneda(indicadores.cuota_total_promedio, moneda)}
-            {indicadores.cuota_final > 0 && " (la cuota balón se paga al final)"}
-          </p>
+          <div className="mt-4 rounded-lg border border-marca-200 bg-white/85 p-3">
+            <p className="text-xs font-semibold uppercase tracking-wide text-marca-700">
+              Cuota con seguros y cargos
+            </p>
+            <p className="mt-1 text-xl font-bold text-slate-900">
+              {formatoMoneda(indicadores.cuota_total_promedio, moneda)}
+            </p>
+            {indicadores.cuota_final > 0 && (
+              <p className="mt-1 text-sm font-semibold text-slate-600">
+                La cuota balón se paga al final.
+              </p>
+            )}
+          </div>
         </div>
         <div className="rounded-lg border-l-4 border-slate-400 bg-white p-5 shadow-suave">
           <p className="flex items-center gap-1 text-xs font-medium uppercase tracking-wide text-slate-500">
@@ -118,9 +124,17 @@ export function ResultadosSimulacion({
           <p className="mt-1 text-3xl font-bold text-acento-700">
             {formatoPorcentaje(indicadores.tcea)}
           </p>
-          <p className="mt-1 text-xs text-slate-500">
-            Costo anual total. TEA: {formatoPorcentaje(indicadores.tea_equivalente)}
-          </p>
+          <div className="mt-4 rounded-lg border border-acento-200 bg-acento-50/60 p-3">
+            <p className="text-xs font-semibold uppercase tracking-wide text-acento-700">
+              TEA equivalente
+            </p>
+            <p className="mt-1 text-xl font-bold text-slate-900">
+              {formatoPorcentaje(indicadores.tea_equivalente)}
+            </p>
+            <p className="mt-1 text-sm font-semibold text-slate-600">
+              Costo anual total del crédito.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -195,13 +209,6 @@ export function ResultadosSimulacion({
               interés, amortización, seguros y cargos; la última incluye la cuota balón.
             </p>
           </div>
-          <button
-            type="button"
-            className="boton-secundario"
-            onClick={() => descargarCronogramaCsv(cronograma, codigo ?? "simulacion")}
-          >
-            Descargar detalle (CSV)
-          </button>
         </div>
 
         <div className="flex flex-wrap items-center gap-4 px-5 py-2 text-xs text-slate-500">
@@ -213,9 +220,9 @@ export function ResultadosSimulacion({
           </span>
         </div>
 
-        <div className="max-h-[28rem] overflow-auto">
+        <div className="overflow-x-auto">
           <table className="tabla-base tabular-nums">
-            <thead className="sticky top-0 z-10">
+            <thead>
               <tr>
                 <th className="text-right">N°</th>
                 <th>Vencimiento</th>
@@ -270,7 +277,7 @@ export function ResultadosSimulacion({
                 );
               })}
             </tbody>
-            <tfoot className="sticky bottom-0">
+            <tfoot>
               <tr className="bg-slate-100 font-semibold text-slate-700">
                 <td colSpan={4} className="text-right">
                   Totales

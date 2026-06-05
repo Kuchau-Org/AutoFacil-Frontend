@@ -83,7 +83,7 @@ export function SimulacionDetalle() {
     }
     if (
       !window.confirm(
-        "¿Eliminar esta simulación? Se quitará del historial y dejará de compartirse con el cliente."
+        "¿Eliminar esta simulación? Se quitará del historial."
       )
     ) {
       return;
@@ -98,23 +98,6 @@ export function SimulacionDetalle() {
     }
   };
 
-  // Genera el enlace publico de solo lectura y lo copia al portapapeles.
-  const compartir = async () => {
-    if (!simulacion?.token_compartir) {
-      return;
-    }
-    const enlace = `${window.location.origin}/compartir/${simulacion.token_compartir}`;
-    setError("");
-    try {
-      await navigator.clipboard.writeText(enlace);
-      setMensajeOk(`Enlace para el cliente copiado al portapapeles: ${enlace}`);
-    } catch {
-      // Si el navegador bloquea el portapapeles, se abre el enlace en otra pestana.
-      window.open(enlace, "_blank", "noopener");
-      setMensajeOk(`Enlace para el cliente: ${enlace}`);
-    }
-  };
-
   if (cargando) {
     return <Cargando mensaje="Cargando simulación..." />;
   }
@@ -122,8 +105,6 @@ export function SimulacionDetalle() {
     return <Mensaje tipo="error">{error || "No se encontró la simulación."}</Mensaje>;
   }
 
-  // El enlace publico solo sirve propuestas vigentes (calculadas).
-  const compartible = simulacion.estado === "CALCULADA";
   const archivada = simulacion.estado === "ARCHIVADA";
 
   return (
@@ -148,18 +129,6 @@ export function SimulacionDetalle() {
           <button type="button" className="boton-secundario" onClick={recalcular}>
             Recalcular
           </button>
-          {compartible ? (
-            <button type="button" className="boton-primario" onClick={compartir}>
-              Compartir con el cliente
-            </button>
-          ) : (
-            <span
-              className="cursor-not-allowed rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm font-semibold text-slate-400"
-              title="Solo se comparten propuestas calculadas"
-            >
-              No compartible
-            </span>
-          )}
           {!archivada && (
             <button type="button" className="boton-secundario text-red-600" onClick={eliminar}>
               Eliminar

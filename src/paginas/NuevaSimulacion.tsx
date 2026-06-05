@@ -1040,7 +1040,7 @@ export function NuevaSimulacion() {
       <section className="tarjeta space-y-5 p-6">
         <Paso numero={4} titulo="Transparencia para el cliente (opcional)" />
         <p className="text-sm text-slate-500">
-          Estos datos no alteran el cálculo: se muestran en la hoja resumen que se comparte con el
+          Estos datos no alteran el cálculo: se muestran en la hoja resumen de transparencia para el
           cliente (art. 25 del Reglamento de Transparencia SBS).
         </p>
         <p className="text-xs text-slate-500">
